@@ -78,14 +78,21 @@ public class ProductCRUD {
 
         List<Product> listOfProducts = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select id,name,qty,description,image,idCat from products");
+        ResultSet rs = ste.executeQuery("SELECT "
+                + "products.id AS product_id,"
+                + "products.name AS product_name,"
+                + "products.qty AS product_qty,"
+                + "products.description AS product_description,"
+                + "products.image AS product_image,"
+                + "idCat AS category_id"
+                + " from products JOIN categories ON products.idCat=categories.id");
         while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            int qty = rs.getInt("qty");
-            String desc = rs.getString("description");
-            String image = rs.getString("image");
-            int idCat = rs.getInt("idCat");
+            int id = rs.getInt("product_id");
+            String name = rs.getString("product_name");
+            int qty = rs.getInt("product_qty");
+            String desc = rs.getString("product_description");
+            String image = rs.getString("product_image");
+            int idCat = rs.getInt("category_id");
             Product p = new Product(id, name, qty, desc, image, idCat);
             listOfProducts.add(p);
         }

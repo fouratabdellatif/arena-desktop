@@ -76,13 +76,26 @@ public class OrderCRUD {
 
         List<Order> listOfOrders = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select id,idProduct,idUser,productQty,createdAt from orders");
+        ResultSet rs = ste.executeQuery("SELECT "
+                + "orders.id AS order_id, "
+                + "idProduct AS product_id, "
+                + "products.name AS product_name, "
+                + "products.description AS product_desc, "
+                + "idUser AS user_id, "
+                + "users.name AS user_name, "
+                + "users.email AS user_email, "
+                + "users.role AS user_role, "
+                + "orders.productQty AS order_qantity, "
+                + "orders.createdAt AS order_date "
+                + "from orders "
+                + "INNER JOIN users ON orders.idUser=users.id "
+                + "INNER JOIN products ON orders.idProduct=products.id");
         while (rs.next()) {
-            int id = rs.getInt("id");
-            int idProduct = rs.getInt("idProduct");
-            int idUser = rs.getInt("idUser");
-            int productQty = rs.getInt("productQty");
-            Date createdAt = rs.getDate("createdAt");
+            int id = rs.getInt("order_id");
+            int idProduct = rs.getInt("product_id");
+            int idUser = rs.getInt("user_id");
+            int productQty = rs.getInt("order_qantity");
+            Date createdAt = rs.getDate("order_date");
             Order o = new Order(id, idProduct, idUser, productQty, createdAt);
             listOfOrders.add(o);
         }
