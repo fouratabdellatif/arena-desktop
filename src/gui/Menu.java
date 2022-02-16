@@ -5,9 +5,16 @@
  */
 package gui;
 
+import entities.Category;
 import java.awt.Color;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import services.CategoryCRUD;
 
 /**
  *
@@ -18,8 +25,35 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu() throws SQLException {
         initComponents();
+        addRowToTable(productCatTbl);
+    }
+
+    CategoryCRUD ccrud = new CategoryCRUD();
+
+    public void addRowToTable(JTable jTbl) throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) jTbl.getModel();
+        List<Category> categories = ccrud.showAllCategories();
+        Object rowData[] = new Object[2];
+        for (int i = 0; i < categories.size(); i++) {
+            rowData[0] = categories.get(i).getName();
+            rowData[1] = categories.get(i).getDesc();
+            model.addRow(rowData);
+        }
+    }
+
+    public void clearTable(JTable jTbl) {
+        jTbl.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Category Name", "Category Description"
+                }));
+        if (jTbl.getColumnModel().getColumnCount() > 0) {
+            jTbl.getColumnModel().getColumn(0).setMinWidth(150);
+            jTbl.getColumnModel().getColumn(0).setPreferredWidth(200);
+            jTbl.getColumnModel().getColumn(0).setMaxWidth(250);
+        }
     }
 
     /**
@@ -53,6 +87,14 @@ public class Menu extends javax.swing.JFrame {
         ordersCntPnl = new javax.swing.JPanel();
         tournamentsCntPnl = new javax.swing.JPanel();
         productCatCntPnl = new javax.swing.JPanel();
+        addProdcutCatForm = new javax.swing.JPanel();
+        nameLbl = new javax.swing.JLabel();
+        descLbl = new javax.swing.JLabel();
+        catNameFld = new javax.swing.JTextField();
+        catDescFld = new javax.swing.JTextField();
+        addBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        productCatTbl = new javax.swing.JTable();
         gameCatCntPnl = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,16 +115,17 @@ public class Menu extends javax.swing.JFrame {
         });
 
         usersLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        usersLbl.setForeground(new java.awt.Color(101, 104, 107));
-        usersLbl.setText("Users");
+        usersLbl.setForeground(new java.awt.Color(255, 255, 255));
+        usersLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons8-user-30.png"))); // NOI18N
+        usersLbl.setText("  Users");
 
         javax.swing.GroupLayout usersPnlLayout = new javax.swing.GroupLayout(usersPnl);
         usersPnl.setLayout(usersPnlLayout);
         usersPnlLayout.setHorizontalGroup(
             usersPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, usersPnlLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(usersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addComponent(usersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         usersPnlLayout.setVerticalGroup(
@@ -108,7 +151,8 @@ public class Menu extends javax.swing.JFrame {
 
         productsLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         productsLbl.setForeground(new java.awt.Color(101, 104, 107));
-        productsLbl.setText("Products");
+        productsLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons8-used-product-30.png"))); // NOI18N
+        productsLbl.setText("  Products");
 
         javax.swing.GroupLayout productsPnlLayout = new javax.swing.GroupLayout(productsPnl);
         productsPnl.setLayout(productsPnlLayout);
@@ -116,7 +160,7 @@ public class Menu extends javax.swing.JFrame {
             productsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, productsPnlLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(productsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(productsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         productsPnlLayout.setVerticalGroup(
@@ -142,7 +186,8 @@ public class Menu extends javax.swing.JFrame {
 
         ordersLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         ordersLbl.setForeground(new java.awt.Color(101, 104, 107));
-        ordersLbl.setText("Orders");
+        ordersLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons8-order-history-30.png"))); // NOI18N
+        ordersLbl.setText("  Orders");
 
         javax.swing.GroupLayout ordersPnlLayout = new javax.swing.GroupLayout(ordersPnl);
         ordersPnl.setLayout(ordersPnlLayout);
@@ -150,7 +195,7 @@ public class Menu extends javax.swing.JFrame {
             ordersPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ordersPnlLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ordersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ordersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         ordersPnlLayout.setVerticalGroup(
@@ -176,7 +221,8 @@ public class Menu extends javax.swing.JFrame {
 
         tournamentsLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tournamentsLbl.setForeground(new java.awt.Color(101, 104, 107));
-        tournamentsLbl.setText("Tournaments");
+        tournamentsLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons8-tournament-30.png"))); // NOI18N
+        tournamentsLbl.setText("  Tournaments");
 
         javax.swing.GroupLayout tournamentsPnlLayout = new javax.swing.GroupLayout(tournamentsPnl);
         tournamentsPnl.setLayout(tournamentsPnlLayout);
@@ -184,7 +230,7 @@ public class Menu extends javax.swing.JFrame {
             tournamentsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tournamentsPnlLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tournamentsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tournamentsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         tournamentsPnlLayout.setVerticalGroup(
@@ -210,7 +256,8 @@ public class Menu extends javax.swing.JFrame {
 
         productCatLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         productCatLbl.setForeground(new java.awt.Color(101, 104, 107));
-        productCatLbl.setText("Product Categories");
+        productCatLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons8-product-documents-30.png"))); // NOI18N
+        productCatLbl.setText("  Product Categories");
 
         javax.swing.GroupLayout productCatPnlLayout = new javax.swing.GroupLayout(productCatPnl);
         productCatPnl.setLayout(productCatPnlLayout);
@@ -218,7 +265,7 @@ public class Menu extends javax.swing.JFrame {
             productCatPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, productCatPnlLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(productCatLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(productCatLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         productCatPnlLayout.setVerticalGroup(
@@ -244,7 +291,8 @@ public class Menu extends javax.swing.JFrame {
 
         gameCatLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         gameCatLbl.setForeground(new java.awt.Color(101, 104, 107));
-        gameCatLbl.setText("Game Categories");
+        gameCatLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons8-category-30.png"))); // NOI18N
+        gameCatLbl.setText("  Game Categories");
 
         javax.swing.GroupLayout gameCatPnlLayout = new javax.swing.GroupLayout(gameCatPnl);
         gameCatPnl.setLayout(gameCatPnlLayout);
@@ -252,7 +300,7 @@ public class Menu extends javax.swing.JFrame {
             gameCatPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gameCatPnlLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(gameCatLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(gameCatLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         gameCatPnlLayout.setVerticalGroup(
@@ -315,7 +363,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(productCatPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(gameCatPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
         contentPnl.setBackground(new java.awt.Color(196, 196, 196));
@@ -326,11 +374,11 @@ public class Menu extends javax.swing.JFrame {
         usersCntPnl.setLayout(usersCntPnlLayout);
         usersCntPnlLayout.setHorizontalGroup(
             usersCntPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1028, Short.MAX_VALUE)
+            .addGap(0, 1008, Short.MAX_VALUE)
         );
         usersCntPnlLayout.setVerticalGroup(
             usersCntPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         productsCntPnl.setBackground(new java.awt.Color(0, 255, 204));
@@ -365,24 +413,82 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setLayout(tournamentsCntPnlLayout);
         tournamentsCntPnlLayout.setHorizontalGroup(
             tournamentsCntPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGap(0, 1028, Short.MAX_VALUE)
         );
         tournamentsCntPnlLayout.setVerticalGroup(
             tournamentsCntPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
-        productCatCntPnl.setBackground(new java.awt.Color(0, 102, 102));
+        productCatCntPnl.setBackground(new java.awt.Color(196, 196, 196));
+
+        addProdcutCatForm.setBackground(new java.awt.Color(235, 235, 235));
+        addProdcutCatForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        nameLbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nameLbl.setText("Product Category Name");
+        addProdcutCatForm.add(nameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 66, 182, 30));
+
+        descLbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        descLbl.setText("Product Category Description");
+        addProdcutCatForm.add(descLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 107, -1, 30));
+        addProdcutCatForm.add(catNameFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 66, 222, 30));
+        addProdcutCatForm.add(catDescFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 107, 222, 30));
+
+        addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
+        addProdcutCatForm.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 155, 139, 42));
+
+        productCatTbl.setBackground(new java.awt.Color(235, 235, 235));
+        productCatTbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        productCatTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Category Name", "Category Description"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(productCatTbl);
+        if (productCatTbl.getColumnModel().getColumnCount() > 0) {
+            productCatTbl.getColumnModel().getColumn(0).setMinWidth(150);
+            productCatTbl.getColumnModel().getColumn(0).setPreferredWidth(200);
+            productCatTbl.getColumnModel().getColumn(0).setMaxWidth(250);
+        }
 
         javax.swing.GroupLayout productCatCntPnlLayout = new javax.swing.GroupLayout(productCatCntPnl);
         productCatCntPnl.setLayout(productCatCntPnlLayout);
         productCatCntPnlLayout.setHorizontalGroup(
             productCatCntPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGroup(productCatCntPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(productCatCntPnlLayout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(addProdcutCatForm, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         productCatCntPnlLayout.setVerticalGroup(
             productCatCntPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGroup(productCatCntPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addProdcutCatForm, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         gameCatCntPnl.setBackground(new java.awt.Color(153, 0, 153));
@@ -402,7 +508,10 @@ public class Menu extends javax.swing.JFrame {
         contentPnl.setLayout(contentPnlLayout);
         contentPnlLayout.setHorizontalGroup(
             contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(usersCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(usersCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(contentPnlLayout.createSequentialGroup()
                     .addContainerGap()
@@ -414,10 +523,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(ordersCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(contentPnlLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(tournamentsCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(tournamentsCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(contentPnlLayout.createSequentialGroup()
                     .addContainerGap()
@@ -431,7 +537,10 @@ public class Menu extends javax.swing.JFrame {
         );
         contentPnlLayout.setVerticalGroup(
             contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(usersCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(usersCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(contentPnlLayout.createSequentialGroup()
                     .addContainerGap()
@@ -443,10 +552,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(ordersCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(contentPnlLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(tournamentsCntPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(tournamentsCntPnl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(contentPnlLayout.createSequentialGroup()
                     .addContainerGap()
@@ -478,6 +584,68 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Color unselected = new Color(101, 104, 107);
+    private String menuItem = "users";
+
+    private void setMenuItem() {
+        switch (menuItem) {
+            case "users":
+                usersLbl.setForeground(Color.white);
+                productsLbl.setForeground(unselected);
+                ordersLbl.setForeground(unselected);
+                tournamentsLbl.setForeground(unselected);
+                productCatLbl.setForeground(unselected);
+                gameCatLbl.setForeground(unselected);
+                break;
+            case "products":
+                productsLbl.setForeground(Color.white);
+                usersLbl.setForeground(unselected);
+                ordersLbl.setForeground(unselected);
+                tournamentsLbl.setForeground(unselected);
+                productCatLbl.setForeground(unselected);
+                gameCatLbl.setForeground(unselected);
+                break;
+            case "orders":
+                ordersLbl.setForeground(Color.white);
+                usersLbl.setForeground(unselected);
+                productsLbl.setForeground(unselected);
+                tournamentsLbl.setForeground(unselected);
+                productCatLbl.setForeground(unselected);
+                gameCatLbl.setForeground(unselected);
+                break;
+            case "tournaments":
+                tournamentsLbl.setForeground(Color.white);
+                usersLbl.setForeground(unselected);
+                productsLbl.setForeground(unselected);
+                ordersLbl.setForeground(unselected);
+                productCatLbl.setForeground(unselected);
+                gameCatLbl.setForeground(unselected);
+                break;
+            case "productCat":
+                productCatLbl.setForeground(Color.white);
+                usersLbl.setForeground(unselected);
+                productsLbl.setForeground(unselected);
+                ordersLbl.setForeground(unselected);
+                tournamentsLbl.setForeground(unselected);
+                gameCatLbl.setForeground(unselected);
+                break;
+            case "gameCat":
+                gameCatLbl.setForeground(Color.white);
+                usersLbl.setForeground(unselected);
+                productsLbl.setForeground(unselected);
+                ordersLbl.setForeground(unselected);
+                tournamentsLbl.setForeground(unselected);
+                productCatLbl.setForeground(unselected);
+                break;
+            default:
+                usersLbl.setForeground(Color.white);
+                productsLbl.setForeground(unselected);
+                ordersLbl.setForeground(unselected);
+                tournamentsLbl.setForeground(unselected);
+                productCatLbl.setForeground(unselected);
+                gameCatLbl.setForeground(unselected);
+                break;
+        }
+    }
 
     private void productsPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsPnlMouseClicked
         // TODO add your handling code here:
@@ -487,6 +655,8 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setVisible(false);
         productCatCntPnl.setVisible(false);
         gameCatCntPnl.setVisible(false);
+        menuItem = "products";
+        setMenuItem();
     }//GEN-LAST:event_productsPnlMouseClicked
 
     private void ordersPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordersPnlMouseClicked
@@ -497,6 +667,8 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setVisible(false);
         productCatCntPnl.setVisible(false);
         gameCatCntPnl.setVisible(false);
+        menuItem = "orders";
+        setMenuItem();
     }//GEN-LAST:event_ordersPnlMouseClicked
 
     private void tournamentsPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tournamentsPnlMouseClicked
@@ -507,6 +679,8 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setVisible(true);
         productCatCntPnl.setVisible(false);
         gameCatCntPnl.setVisible(false);
+        menuItem = "tournaments";
+        setMenuItem();
     }//GEN-LAST:event_tournamentsPnlMouseClicked
 
     private void productCatPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productCatPnlMouseClicked
@@ -517,6 +691,8 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setVisible(false);
         productCatCntPnl.setVisible(true);
         gameCatCntPnl.setVisible(false);
+        menuItem = "productCat";
+        setMenuItem();
     }//GEN-LAST:event_productCatPnlMouseClicked
 
     private void gameCatPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameCatPnlMouseClicked
@@ -527,6 +703,8 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setVisible(false);
         productCatCntPnl.setVisible(false);
         gameCatCntPnl.setVisible(true);
+        menuItem = "gameCat";
+        setMenuItem();
     }//GEN-LAST:event_gameCatPnlMouseClicked
 
     private void usersPnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersPnlMouseEntered
@@ -536,7 +714,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void usersPnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersPnlMouseExited
         // TODO add your handling code here:
-        usersLbl.setForeground(unselected);
+        setMenuItem();
     }//GEN-LAST:event_usersPnlMouseExited
 
     private void usersPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersPnlMouseClicked
@@ -547,6 +725,8 @@ public class Menu extends javax.swing.JFrame {
         tournamentsCntPnl.setVisible(false);
         productCatCntPnl.setVisible(false);
         gameCatCntPnl.setVisible(false);
+        menuItem = "users";
+        setMenuItem();
     }//GEN-LAST:event_usersPnlMouseClicked
 
     private void productsPnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsPnlMouseEntered
@@ -556,7 +736,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void productsPnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsPnlMouseExited
         // TODO add your handling code here:
-        productsLbl.setForeground(unselected);
+        setMenuItem();
     }//GEN-LAST:event_productsPnlMouseExited
 
     private void ordersPnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordersPnlMouseEntered
@@ -566,7 +746,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void ordersPnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordersPnlMouseExited
         // TODO add your handling code here:
-        ordersLbl.setForeground(unselected);
+        setMenuItem();
     }//GEN-LAST:event_ordersPnlMouseExited
 
     private void tournamentsPnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tournamentsPnlMouseEntered
@@ -576,7 +756,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void tournamentsPnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tournamentsPnlMouseExited
         // TODO add your handling code here:
-        tournamentsLbl.setForeground(unselected);
+        setMenuItem();
     }//GEN-LAST:event_tournamentsPnlMouseExited
 
     private void productCatPnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productCatPnlMouseEntered
@@ -586,7 +766,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void productCatPnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productCatPnlMouseExited
         // TODO add your handling code here:
-        productCatLbl.setForeground(unselected);
+        setMenuItem();
     }//GEN-LAST:event_productCatPnlMouseExited
 
     private void gameCatPnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameCatPnlMouseEntered
@@ -596,8 +776,27 @@ public class Menu extends javax.swing.JFrame {
 
     private void gameCatPnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameCatPnlMouseExited
         // TODO add your handling code here:
-        gameCatLbl.setForeground(unselected);
+        setMenuItem();
     }//GEN-LAST:event_gameCatPnlMouseExited
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        String catName = catNameFld.getText();
+        String catDesc = catDescFld.getText();
+
+        Category c = new Category(catName, catDesc);
+        try {
+            ccrud.addCategory(c);
+            catNameFld.setText("");
+            catDescFld.setText("");
+            catNameFld.requestFocus();
+            JOptionPane.showMessageDialog(addBtn, "Product Category added");
+            clearTable(productCatTbl);
+            addRowToTable(productCatTbl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_addBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -629,26 +828,38 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                try {
+                    new Menu().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
+    private javax.swing.JPanel addProdcutCatForm;
+    private javax.swing.JTextField catDescFld;
+    private javax.swing.JTextField catNameFld;
     private javax.swing.JPanel contentPnl;
+    private javax.swing.JLabel descLbl;
     private javax.swing.JPanel gameCatCntPnl;
     private javax.swing.JLabel gameCatLbl;
     private javax.swing.JPanel gameCatPnl;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel logoLbl;
     private javax.swing.JPanel logoPnl;
     private javax.swing.JPanel menuPnl;
     private javax.swing.JSeparator menuSep;
+    private javax.swing.JLabel nameLbl;
     private javax.swing.JPanel ordersCntPnl;
     private javax.swing.JLabel ordersLbl;
     private javax.swing.JPanel ordersPnl;
     private javax.swing.JPanel productCatCntPnl;
     private javax.swing.JLabel productCatLbl;
     private javax.swing.JPanel productCatPnl;
+    private javax.swing.JTable productCatTbl;
     private javax.swing.JPanel productsCntPnl;
     private javax.swing.JLabel productsLbl;
     private javax.swing.JPanel productsPnl;
