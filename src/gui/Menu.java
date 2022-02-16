@@ -35,10 +35,11 @@ public class Menu extends javax.swing.JFrame {
     public void addRowToTable(JTable jTbl) throws SQLException {
         DefaultTableModel model = (DefaultTableModel) jTbl.getModel();
         List<Category> categories = ccrud.showAllCategories();
-        Object rowData[] = new Object[2];
+        Object rowData[] = new Object[3];
         for (int i = 0; i < categories.size(); i++) {
-            rowData[0] = categories.get(i).getName();
-            rowData[1] = categories.get(i).getDesc();
+            rowData[0] = categories.get(i).getId();
+            rowData[1] = categories.get(i).getName();
+            rowData[2] = categories.get(i).getDesc();
             model.addRow(rowData);
         }
     }
@@ -47,12 +48,15 @@ public class Menu extends javax.swing.JFrame {
         jTbl.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Category Name", "Category Description"
+                    "ID_Category", "Category Name", "Category Description"
                 }));
-        if (jTbl.getColumnModel().getColumnCount() > 0) {
-            jTbl.getColumnModel().getColumn(0).setMinWidth(150);
-            jTbl.getColumnModel().getColumn(0).setPreferredWidth(200);
-            jTbl.getColumnModel().getColumn(0).setMaxWidth(250);
+        if (productCatTbl.getColumnModel().getColumnCount() > 0) {
+            productCatTbl.getColumnModel().getColumn(0).setMinWidth(20);
+            productCatTbl.getColumnModel().getColumn(0).setPreferredWidth(80);
+            productCatTbl.getColumnModel().getColumn(0).setMaxWidth(80);
+            productCatTbl.getColumnModel().getColumn(1).setMinWidth(150);
+            productCatTbl.getColumnModel().getColumn(1).setPreferredWidth(200);
+            productCatTbl.getColumnModel().getColumn(1).setMaxWidth(250);
         }
     }
 
@@ -93,6 +97,8 @@ public class Menu extends javax.swing.JFrame {
         catNameFld = new javax.swing.JTextField();
         catDescFld = new javax.swing.JTextField();
         addBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         productCatTbl = new javax.swing.JTable();
         gameCatCntPnl = new javax.swing.JPanel();
@@ -363,7 +369,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(productCatPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(gameCatPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
 
         contentPnl.setBackground(new java.awt.Color(196, 196, 196));
@@ -441,7 +447,23 @@ public class Menu extends javax.swing.JFrame {
                 addBtnActionPerformed(evt);
             }
         });
-        addProdcutCatForm.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 155, 139, 42));
+        addProdcutCatForm.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 139, 42));
+
+        updateBtn.setText("Update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
+        addProdcutCatForm.add(updateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 139, 42));
+
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+        addProdcutCatForm.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 139, 42));
 
         productCatTbl.setBackground(new java.awt.Color(235, 235, 235));
         productCatTbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -450,22 +472,30 @@ public class Menu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Category Name", "Category Description"
+                "ID_Category", "Category Name", "Category Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        productCatTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productCatTblMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(productCatTbl);
         if (productCatTbl.getColumnModel().getColumnCount() > 0) {
-            productCatTbl.getColumnModel().getColumn(0).setMinWidth(150);
-            productCatTbl.getColumnModel().getColumn(0).setPreferredWidth(200);
-            productCatTbl.getColumnModel().getColumn(0).setMaxWidth(250);
+            productCatTbl.getColumnModel().getColumn(0).setMinWidth(20);
+            productCatTbl.getColumnModel().getColumn(0).setPreferredWidth(80);
+            productCatTbl.getColumnModel().getColumn(0).setMaxWidth(80);
+            productCatTbl.getColumnModel().getColumn(1).setMinWidth(150);
+            productCatTbl.getColumnModel().getColumn(1).setPreferredWidth(200);
+            productCatTbl.getColumnModel().getColumn(1).setMaxWidth(250);
         }
 
         javax.swing.GroupLayout productCatCntPnlLayout = new javax.swing.GroupLayout(productCatCntPnl);
@@ -798,6 +828,58 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        int SelectIndex = productCatTbl.getSelectedRow();
+        String catName = catNameFld.getText();
+        String catDesc = catDescFld.getText();
+        int catId = Integer.parseInt(productCatTbl.getValueAt(SelectIndex, 0).toString());
+
+        try {
+            ccrud.updateCategory(catName, catDesc, catId);
+            System.out.println(catId);
+            catNameFld.setText("");
+            catDescFld.setText("");
+            catNameFld.requestFocus();
+            addBtn.setEnabled(true);
+            JOptionPane.showMessageDialog(addBtn, "Product Category updated");
+            clearTable(productCatTbl);
+            addRowToTable(productCatTbl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        int SelectIndex = productCatTbl.getSelectedRow();
+        int catId = Integer.parseInt(productCatTbl.getValueAt(SelectIndex, 0).toString());
+
+        try {
+            ccrud.deleteCategory(catId);
+            catNameFld.setText("");
+            catDescFld.setText("");
+            catNameFld.requestFocus();
+            addBtn.setEnabled(true);
+            JOptionPane.showMessageDialog(addBtn, "Product Category deleted");
+            clearTable(productCatTbl);
+            addRowToTable(productCatTbl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void productCatTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productCatTblMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tbl = (DefaultTableModel) productCatTbl.getModel();
+        int SelectIndex = productCatTbl.getSelectedRow();
+
+        catNameFld.setText(tbl.getValueAt(SelectIndex, 1).toString());
+        catDescFld.setText(tbl.getValueAt(SelectIndex, 2).toString());
+
+        addBtn.setEnabled(false);
+    }//GEN-LAST:event_productCatTblMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -843,6 +925,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField catDescFld;
     private javax.swing.JTextField catNameFld;
     private javax.swing.JPanel contentPnl;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel descLbl;
     private javax.swing.JPanel gameCatCntPnl;
     private javax.swing.JLabel gameCatLbl;
@@ -866,6 +949,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel tournamentsCntPnl;
     private javax.swing.JLabel tournamentsLbl;
     private javax.swing.JPanel tournamentsPnl;
+    private javax.swing.JButton updateBtn;
     private javax.swing.JPanel usersCntPnl;
     private javax.swing.JLabel usersLbl;
     private javax.swing.JPanel usersPnl;

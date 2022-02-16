@@ -38,11 +38,10 @@ public class CategoryCRUD {
 
     public boolean updateCategory(String name, String desc, int id) {
         try {
-            PreparedStatement pre = con.prepareStatement("update categories set name=?, description=?, where id=? ;");
+            PreparedStatement pre = con.prepareStatement("update categories set name=?, description=? where id=" + id + ";");
 
             pre.setString(1, name);
             pre.setString(2, desc);
-            pre.setInt(3, id);
 
             if (pre.executeUpdate() != 0) {
                 System.out.println("category updated");
