@@ -55,23 +55,24 @@ public class ArenaDesktop {
 //        ccrud.addCategory(c1);
 //        ccrud.addCategory(c2);
 ////
-        List<Category> categories = ccrud.showAllCategories();
-        Product p1 = new Product("FIFA22 Game", 50, "Play soccer against your friends", "/imageFifa22.jpg", categories.get(0).getId());
-        Product p2 = new Product("PS5", 20, "PlayStation 5 Gaming Console", "/imagePS5.jpg", categories.get(1).getId());
-        Product p3 = new Product(2, "Joystick", 80, "The best joystick ever", "/imageJoystick.jpg", categories.get(1).getId());
+//        List<Category> categories = ccrud.showAllCategories();
+//        Product p1 = new Product("FIFA22 Game", 50, "Play soccer against your friends", "/imageFifa22.jpg", categories.get(0).getId());
+//        Product p2 = new Product("PS5", 20, "PlayStation 5 Gaming Console", "/imagePS5.jpg", categories.get(1).getId());
+//        Product p3 = new Product(2, "Joystick", 80, "The best joystick ever", "/imageJoystick.jpg", categories.get(1).getId());
 //        pcrud.addProduct(p1);
 //        pcrud.addProduct(p2);
 //        pcrud.addProduct(p3);
 //
-        List<Product> products = pcrud.showAllProducts();
-        Order o1 = new Order(products.get(0).getId(), 1, 2);
-        Order o2 = new Order(products.get(1).getId(), 1, 3);
-        Order o3 = new Order(products.get(1).getId(), 2, 4);
-        Order o4 = new Order(products.get(2).getId(), 3, 4);
-        ocrud.addOrder(o1);
-        ocrud.addOrder(o2);
-        ocrud.addOrder(o3);
-        ocrud.addOrder(o4);
+//        List<Product> products = pcrud.showAllProducts();
+//        System.out.println(products);
+//        Order o1 = new Order(products.get(0).getId(), 1, 2);
+//        Order o2 = new Order(products.get(1).getId(), 1, 3);
+//        Order o3 = new Order(products.get(1).getId(), 2, 4);
+//        Order o4 = new Order(products.get(2).getId(), 3, 4);
+//        ocrud.addOrder(o1);
+//        ocrud.addOrder(o2);
+//        ocrud.addOrder(o3);
+//        ocrud.addOrder(o4);
 //        pcrud.updateProduct("God Of War", 60, "Play God Of War", "/imageGOW", c1.getId(), 9);
 //        pcrud.deleteProduct(9);
 //        List<Product> products = pcrud.showAllProducts();
@@ -79,7 +80,7 @@ public class ArenaDesktop {
 //        System.out.println(products.get(0));
 //        System.out.println(ccrud.showAllCategories());
 //        System.out.println(ccrud.showCategory(14));
-        System.out.println(ocrud.showAllOrders());
+//        System.out.println(ocrud.showAllOrders());
 //        pcrud.addProduct(p1);
 //        pcrud.addProduct(p2);
 //        pcrud.addProduct(p3);

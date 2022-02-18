@@ -17,9 +17,32 @@ public class Product {
     private String desc;
     private String image;
     private int idCategory;
+    private String catName;
+    private String catDesc;
 
     public Product() {
 
+    }
+
+    public Product(int id, String name, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
+        this.id = id;
+        this.name = name;
+        this.qty = qty;
+        this.desc = desc;
+        this.image = image;
+        this.idCategory = idCategory;
+        this.catName = catName;
+        this.catDesc = catDesc;
+    }
+
+    public Product(String name, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
+        this.name = name;
+        this.qty = qty;
+        this.desc = desc;
+        this.image = image;
+        this.idCategory = idCategory;
+        this.catName = catName;
+        this.catDesc = catDesc;
     }
 
     public Product(int id, String name, int qty, String desc, String image, int idCategory) {
@@ -70,6 +93,14 @@ public class Product {
         return idCategory;
     }
 
+    public String getCatName() {
+        return catName;
+    }
+
+    public String getCatDesc() {
+        return catDesc;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -94,9 +125,17 @@ public class Product {
         this.idCategory = idCategory;
     }
 
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public void setCatDesc(String catDesc) {
+        this.catDesc = catDesc;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", desc=" + desc + ", image=" + image + ", idCategory=" + idCategory + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", desc=" + desc + ", image=" + image + ", idCategory=" + idCategory + ", catName=" + catName + ", catDesc=" + catDesc + '}';
     }
 
 }

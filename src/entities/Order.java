@@ -19,6 +19,36 @@ public class Order {
     private int idUser;
     private int productQty;
     private Date createdAt;
+    private String productName;
+    private String productDesc;
+    private String userName;
+    private String userEmail;
+    private String userRole;
+
+    public Order(int id, int idProduct, int idUser, int productQty, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole) {
+        this.id = id;
+        this.idProduct = idProduct;
+        this.idUser = idUser;
+        this.productQty = productQty;
+        this.createdAt = createdAt;
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+    }
+
+    public Order(int idProduct, int idUser, int productQty, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole) {
+        this.idProduct = idProduct;
+        this.idUser = idUser;
+        this.productQty = productQty;
+        this.createdAt = createdAt;
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+    }
 
     public Order(int id, int idProduct, int idUser, int productQty) {
         this.id = id;
@@ -68,6 +98,26 @@ public class Order {
         return productQty;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -92,9 +142,29 @@ public class Order {
         this.createdAt = createdAt;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", idProduct=" + idProduct + ", idUser=" + idUser + ", productQty=" + productQty + ", createdAt=" + createdAt + '}';
+        return "Order{" + "id=" + id + ", idProduct=" + idProduct + ", idUser=" + idUser + ", productQty=" + productQty + ", createdAt=" + createdAt + ", productName=" + productName + ", productDesc=" + productDesc + ", userName=" + userName + ", userEmail=" + userEmail + ", userRole=" + userRole + '}';
     }
 
 }

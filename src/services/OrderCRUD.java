@@ -93,10 +93,15 @@ public class OrderCRUD {
         while (rs.next()) {
             int id = rs.getInt("order_id");
             int idProduct = rs.getInt("product_id");
+            String productName = rs.getString("product_name");
+            String productDesc = rs.getString("product_desc");
+            String userName = rs.getString("user_name");
+            String userEmail = rs.getString("user_email");
+            String userRole = rs.getString("user_role");
             int idUser = rs.getInt("user_id");
             int productQty = rs.getInt("order_qantity");
             Date createdAt = rs.getDate("order_date");
-            Order o = new Order(id, idProduct, idUser, productQty, createdAt);
+            Order o = new Order(id, idProduct, idUser, productQty, createdAt, productName, productDesc, userName, userEmail, userRole);
             listOfOrders.add(o);
         }
         return listOfOrders;

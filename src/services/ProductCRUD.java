@@ -84,7 +84,9 @@ public class ProductCRUD {
                 + "products.qty AS product_qty,"
                 + "products.description AS product_description,"
                 + "products.image AS product_image,"
-                + "idCat AS category_id"
+                + "idCat AS category_id, "
+                + "categories.name AS category_name, "
+                + "categories.description AS category_desc"
                 + " from products JOIN categories ON products.idCat=categories.id");
         while (rs.next()) {
             int id = rs.getInt("product_id");
@@ -93,7 +95,9 @@ public class ProductCRUD {
             String desc = rs.getString("product_description");
             String image = rs.getString("product_image");
             int idCat = rs.getInt("category_id");
-            Product p = new Product(id, name, qty, desc, image, idCat);
+            String catName = rs.getString("category_name");
+            String catDesc = rs.getString("category_desc");
+            Product p = new Product(id, name, qty, desc, image, idCat, catName, catDesc);
             listOfProducts.add(p);
         }
         return listOfProducts;
