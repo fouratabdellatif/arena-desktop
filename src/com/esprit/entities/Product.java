@@ -69,6 +69,10 @@ public class Product {
         this.image = image;
     }
 
+    public Product(String name, int qty, String desc, String image, String category) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getId() {
         return id;
     }
