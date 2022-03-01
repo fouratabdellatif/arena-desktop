@@ -6,11 +6,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.gui.BackofficeHomeController">
     <children>
-        <Pane layoutX="225.0" prefHeight="600.0" prefWidth="725.0" style="-fx-background-color: #c4c4c4;" />
       <Pane prefHeight="600.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f;">
          <children>
             <ImageView fitHeight="54.0" fitWidth="165.0" layoutX="38.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" x="0.0">
@@ -21,15 +21,20 @@
             <Separator layoutY="102.0" prefHeight="3.0" prefWidth="225.0" />
             <VBox layoutY="138.0" prefHeight="242.0" prefWidth="225.0">
                <children>
-                  <JFXButton prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Users" />
-                  <JFXButton prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Products" textAlignment="CENTER" />
-                  <JFXButton prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Orders" textAlignment="CENTER" />
-                  <JFXButton prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Tournaments" textAlignment="CENTER" />
-                  <JFXButton prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Game Categories" textAlignment="CENTER" />
-                  <JFXButton prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Product Catgeories" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchUsers" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Users" />
+                  <JFXButton onAction="#switchProducts" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Products" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchOrders" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Orders" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchTournaments" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Tournaments" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchGameCat" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Game Categories" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchProductCat" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Product Catgeories" textAlignment="CENTER" />
                </children>
             </VBox>
          </children>
       </Pane>
+      <AnchorPane layoutX="228.0" prefHeight="600.0" prefWidth="722.0" style="-fx-background-color: #c4c4c4;">
+         <children>
+            <StackPane fx:id="contentArea" prefHeight="600.0" prefWidth="722.0" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
