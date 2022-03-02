@@ -20,7 +20,7 @@
                   <JFXButton layoutX="401.0" layoutY="106.0" onAction="#deleteCategory" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #c4c4c4;" text="Delete" />
                </children>
             </Pane>
-            <TableView fx:id="productsTable" layoutX="14.0" layoutY="194.0" prefHeight="393.0" prefWidth="694.0">
+            <TableView fx:id="categoriesTable" layoutX="14.0" layoutY="194.0" onMouseClicked="#selectCategory" prefHeight="393.0" prefWidth="694.0">
                <columns>
                   <TableColumn fx:id="catNameCol" prefWidth="173.0" text="Category" />
                   <TableColumn fx:id="catDescCol" prefWidth="520.0" text="Description" />
