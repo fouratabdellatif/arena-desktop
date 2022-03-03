@@ -46,7 +46,7 @@ public class ProductCatController implements Initializable {
     private TableColumn<Category, String> catDescCol;
 
     ObservableList<Category> CategoriesList = FXCollections.observableArrayList();
-    Category catItem;
+    private Category catItem;
 
     /**
      * Initializes the controller class.
@@ -142,8 +142,8 @@ public class ProductCatController implements Initializable {
         } catch (SQLException ex) {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("not addedd");
-            alert.setContentText("category isn't added");
+            alert.setHeaderText("not deleted");
+            alert.setContentText("category isn't deleted");
             System.out.println(ex.getMessage());
         } finally {
             alert.showAndWait();

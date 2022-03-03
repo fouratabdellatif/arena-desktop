@@ -15,8 +15,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -47,6 +46,7 @@ public class ProductsController implements Initializable {
 
     ObservableList<Product> ProductsList = FXCollections.observableArrayList();
     ObservableList<Category> CategoriesList = FXCollections.observableArrayList();
+    private Product productItem;
 
     @FXML
     private JFXTextField nameFld;
@@ -103,7 +103,6 @@ public class ProductsController implements Initializable {
         catCol.setCellValueFactory(new PropertyValueFactory<>("catName"));
     }
 
-    @FXML
     private void clean() {
         nameFld.setText(null);
         qtyFld.setText(null);
@@ -144,10 +143,56 @@ public class ProductsController implements Initializable {
 
     @FXML
     private void updateProduct(ActionEvent event) {
+        String name = nameFld.getText();
+        String desc = descFld.getText();
+        int qty = Integer.parseInt(qtyFld.getText());
+        String image = imageFld.getText();
+        int idCat = productItem.getIdCategory();
+        int id = productItem.getId();
+
+        ProductCRUD pcrud = new ProductCRUD();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        pcrud.updateProduct(name, qty, desc, image, idCat, id);
+        alert.setTitle("Success");
+        alert.setHeaderText("updated");
+        alert.setContentText("product updated successfully");
+        clean();
+        refreshTable();
+        alert.showAndWait();
     }
 
     @FXML
     private void deleteProduct(ActionEvent event) {
+
+        int id = productItem.getId();
+        ProductCRUD pcrud = new ProductCRUD();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        try {
+            pcrud.deleteProduct(id);
+            alert.setTitle("Success");
+            alert.setHeaderText("deleted");
+            alert.setContentText("product deleted successfully");
+            clean();
+            refreshTable();
+        } catch (SQLException ex) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("not deleted");
+            alert.setContentText("product isn't deleted");
+            System.out.println(ex.getMessage());
+        } finally {
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void selectProduct(MouseEvent event) {
+        productItem = productsTable.getSelectionModel().getSelectedItem();
+        nameFld.setText(productItem.getName());
+        descFld.setText(productItem.getDesc());
+        qtyFld.setText(Integer.toString(productItem.getQty()));
+        imageFld.setText(productItem.getImage());
+//        catFld.getSelectionModel().select(productItem);
     }
 
 }

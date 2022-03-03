@@ -3,20 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/tests/FXMain.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/BackofficeHome.fxml</file>
+            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/tests/FXMain.java</file>
+            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/productcat.fxml</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/entities/Category.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/ShowProductsController.java</file>
+            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/ProductsController.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/entities/Product.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/entities/Order.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/entities/User.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/AddProductForm.fxml</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/tests/ArenaDesktop.java</file>
+            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/products.fxml</file>
+            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/ProductCatController.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/services/CategoryCRUD.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/AddProductFormController.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/BackofficeHomeController.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/services/OrderCRUD.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/ShowProducts.fxml</file>
+            <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/gui/orders.fxml</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/utils/DBConnection.java</file>
             <file>file:/C:/Users/Foura/Documents/NetBeansProjects/arena-desktop/src/com/esprit/services/ProductCRUD.java</file>
         </group>

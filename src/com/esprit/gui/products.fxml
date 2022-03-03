@@ -24,7 +24,7 @@
                   <JFXButton layoutX="501.0" layoutY="109.0" onAction="#deleteProduct" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #c4c4c4;" text="Delete" />
                </children>
             </Pane>
-            <TableView fx:id="productsTable" layoutX="14.0" layoutY="194.0" prefHeight="393.0" prefWidth="694.0">
+            <TableView fx:id="productsTable" layoutX="14.0" layoutY="194.0" onMouseClicked="#selectProduct" prefHeight="393.0" prefWidth="694.0">
               <columns>
                 <TableColumn fx:id="nameCol" prefWidth="147.0" text="Name" />
                 <TableColumn fx:id="qtyCol" minWidth="3.0" prefWidth="79.0" text="Quantity" />
