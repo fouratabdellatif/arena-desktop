@@ -6,22 +6,20 @@
 package com.esprit.gui;
 
 import com.esprit.entities.Category;
-import com.esprit.entities.Product;
 import com.esprit.services.CategoryCRUD;
-import com.esprit.services.ProductCRUD;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,6 +45,10 @@ public class ProductCatController implements Initializable {
 
     ObservableList<Category> CategoriesList = FXCollections.observableArrayList();
     private Category catItem;
+    @FXML
+    private JFXButton addBtn;
+    @FXML
+    private Label catNumberLbl;
 
     /**
      * Initializes the controller class.
@@ -64,6 +66,12 @@ public class ProductCatController implements Initializable {
             List<Category> categories = ccrud.showAllCategories();
             CategoriesList.setAll(categories);
             categoriesTable.setItems(CategoriesList);
+
+            if (categories.size() == 1) {
+                catNumberLbl.setText(Integer.toString(categories.size()) + " category");
+            } else {
+                catNumberLbl.setText(Integer.toString(categories.size()) + " categories");
+            }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -84,6 +92,19 @@ public class ProductCatController implements Initializable {
 
     @FXML
     private void addCategory(ActionEvent event) {
+        if (catNameFld.getText().length() == 0) {
+            catNameFld.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            new animatefx.animation.Shake(catNameFld).play();
+        } else {
+            catNameFld.setStyle(null);
+        }
+        if (catDescFld.getText().length() == 0) {
+            catDescFld.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            new animatefx.animation.Shake(catDescFld).play();
+        } else {
+            catDescFld.setStyle(null);
+        }
+
         String name = catNameFld.getText();
         String desc = catDescFld.getText();
 
@@ -111,19 +132,41 @@ public class ProductCatController implements Initializable {
 
     @FXML
     private void updateCategory(ActionEvent event) {
+        if (catNameFld.getText().length() == 0) {
+            catNameFld.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            new animatefx.animation.Shake(catNameFld).play();
+        } else {
+            catNameFld.setStyle(null);
+        }
+        if (catDescFld.getText().length() == 0) {
+            catDescFld.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            new animatefx.animation.Shake(catDescFld).play();
+        } else {
+            catDescFld.setStyle(null);
+        }
+
         String name = catNameFld.getText();
         String desc = catDescFld.getText();
         int id = catItem.getId();
-
+        
         CategoryCRUD ccrud = new CategoryCRUD();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        ccrud.updateCategory(name, desc, id);
-        alert.setTitle("Success");
-        alert.setHeaderText("updated");
-        alert.setContentText("category updated successfully");
-        clean();
-        refreshTable();
-        alert.showAndWait();
+        try {
+            ccrud.updateCategory(name, desc, id);
+            alert.setTitle("Success");
+            alert.setHeaderText("updated");
+            alert.setContentText("category updated successfully");
+            clean();
+            refreshTable();
+        } catch (SQLException ex) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("not updated");
+            alert.setContentText("category isn't updated");
+            System.out.println(ex.getMessage());
+        } finally {
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -155,6 +198,7 @@ public class ProductCatController implements Initializable {
         catItem = categoriesTable.getSelectionModel().getSelectedItem();
         catNameFld.setText(catItem.getName());
         catDescFld.setText(catItem.getDesc());
+        addBtn.setDisable(true);
     }
 
 }

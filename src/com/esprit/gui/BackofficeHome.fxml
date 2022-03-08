@@ -21,12 +21,12 @@
             <Separator layoutY="102.0" prefHeight="3.0" prefWidth="225.0" />
             <VBox layoutY="138.0" prefHeight="242.0" prefWidth="225.0">
                <children>
-                  <JFXButton onAction="#switchUsers" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Users" />
-                  <JFXButton onAction="#switchProducts" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Products" textAlignment="CENTER" />
-                  <JFXButton onAction="#switchOrders" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Orders" textAlignment="CENTER" />
-                  <JFXButton onAction="#switchTournaments" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Tournaments" textAlignment="CENTER" />
-                  <JFXButton onAction="#switchGameCat" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Game Categories" textAlignment="CENTER" />
-                  <JFXButton onAction="#switchProductCat" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Product Catgeories" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchUsers" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px; -fx-text-fill: #ffffff;" text="Users" />
+                  <JFXButton onAction="#switchProducts" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px; -fx-text-fill: #ffffff;" text="Products" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchOrders" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px; -fx-text-fill: #ffffff;" text="Orders" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchTournaments" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px; -fx-text-fill: #ffffff;" text="Tournaments" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchGameCat" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px; -fx-text-fill: #ffffff;" text="Game Categories" textAlignment="CENTER" />
+                  <JFXButton onAction="#switchProductCat" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px; -fx-text-fill: #ffffff;" text="Product Catgeories" textAlignment="CENTER" />
                </children>
             </VBox>
          </children>

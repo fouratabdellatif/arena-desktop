@@ -36,20 +36,17 @@ public class CategoryCRUD {
         pre.executeUpdate();
     }
 
-    public boolean updateCategory(String name, String desc, int id) {
-        try {
-            PreparedStatement pre = con.prepareStatement("update categories set name=?, description=? where id=" + id + ";");
+    public boolean updateCategory(String name, String desc, int id) throws SQLException {
+        PreparedStatement pre = con.prepareStatement("update categories set name=?, description=? where id=" + id + ";");
 
-            pre.setString(1, name);
-            pre.setString(2, desc);
+        pre.setString(1, name);
+        pre.setString(2, desc);
 
-            if (pre.executeUpdate() != 0) {
-                System.out.println("category updated");
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if (pre.executeUpdate() != 0) {
+            System.out.println("category updated");
+            return true;
         }
+
         System.out.println("id not found!");
         return false;
     }

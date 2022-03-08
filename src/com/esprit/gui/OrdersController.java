@@ -6,9 +6,8 @@
 package com.esprit.gui;
 
 import com.esprit.entities.Order;
-import com.esprit.entities.Product;
 import com.esprit.services.OrderCRUD;
-import com.esprit.services.ProductCRUD;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,11 +15,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -41,6 +44,10 @@ public class OrdersController implements Initializable {
     private TableColumn<Order, Date> dateCol;
     
     ObservableList<Order> OrdersList = FXCollections.observableArrayList();
+    @FXML
+    private Label orderNumberLbl;
+    @FXML
+    private JFXTextField searchFld;
 
     /**
      * Initializes the controller class.
@@ -60,6 +67,12 @@ public class OrdersController implements Initializable {
             System.out.print(orders);
             OrdersList.setAll(orders);
             ordersTable.setItems(OrdersList);
+
+            if (orders.size() == 1) {
+                orderNumberLbl.setText(Integer.toString(orders.size()) + " order");
+            } else {
+                orderNumberLbl.setText(Integer.toString(orders.size()) + " orders");
+            }
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -73,5 +86,34 @@ public class OrdersController implements Initializable {
         userCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         qtyCol.setCellValueFactory(new PropertyValueFactory<>("productQty"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+    }
+
+    @FXML
+    private void search(KeyEvent event) {
+        FilteredList<Order> filteredData = new FilteredList<>(OrdersList, b -> true);
+        searchFld.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(o -> {
+                // If filter text is empty, display all persons.
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (o.getProductName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches first name.
+                } else if (o.getUserName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                } else {
+                    return false; // Does not match.
+                }
+            });
+
+        });
+        SortedList<Order> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(ordersTable.comparatorProperty());
+        ordersTable.setItems(sortedData);
     }
 }

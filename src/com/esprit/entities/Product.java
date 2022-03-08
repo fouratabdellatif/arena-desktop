@@ -19,12 +19,39 @@ public class Product {
     private int idCategory;
     private String catName;
     private String catDesc;
+    private int price;
+    private int rate;
 
     public Product() {
 
     }
 
-    public Product(int id, String name, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
+    public Product(int id, String name, int qty, String desc, String image, int idCategory, String catName, String catDesc, int price, int rate) {
+        this.id = id;
+        this.name = name;
+        this.qty = qty;
+        this.desc = desc;
+        this.image = image;
+        this.idCategory = idCategory;
+        this.catName = catName;
+        this.catDesc = catDesc;
+        this.price = price;
+        this.rate = rate;
+    }
+
+    public Product(String name, int qty, String desc, String image, int idCategory, String catName, String catDesc, int price, int rate) {
+        this.name = name;
+        this.qty = qty;
+        this.desc = desc;
+        this.image = image;
+        this.idCategory = idCategory;
+        this.catName = catName;
+        this.catDesc = catDesc;
+        this.price = price;
+        this.rate = rate;
+    }
+
+    public Product(int id, String name, int price, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
         this.id = id;
         this.name = name;
         this.qty = qty;
@@ -35,7 +62,7 @@ public class Product {
         this.catDesc = catDesc;
     }
 
-    public Product(String name, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
+    public Product(String name, int price, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
         this.name = name;
         this.qty = qty;
         this.desc = desc;
@@ -45,7 +72,7 @@ public class Product {
         this.catDesc = catDesc;
     }
 
-    public Product(int id, String name, int qty, String desc, String image, int idCategory) {
+    public Product(int id, String name, int price, int qty, String desc, String image, int idCategory) {
         this.id = id;
         this.name = name;
         this.qty = qty;
@@ -54,7 +81,7 @@ public class Product {
         this.idCategory = idCategory;
     }
 
-    public Product(String name, int qty, String desc, String image, int idCategory) {
+    public Product(String name, int price, int qty, String desc, String image, int idCategory) {
         this.name = name;
         this.qty = qty;
         this.desc = desc;
@@ -62,15 +89,11 @@ public class Product {
         this.idCategory = idCategory;
     }
 
-    public Product(String name, int qty, String desc, String image) {
+    public Product(String name, int price, int qty, String desc, String image) {
         this.name = name;
         this.qty = qty;
         this.desc = desc;
         this.image = image;
-    }
-
-    public Product(String name, int qty, String desc, String image, String category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getId() {
@@ -105,6 +128,18 @@ public class Product {
         return catDesc;
     }
 
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -137,9 +172,13 @@ public class Product {
         this.catDesc = catDesc;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", desc=" + desc + ", image=" + image + ", idCategory=" + idCategory + ", catName=" + catName + ", catDesc=" + catDesc + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", desc=" + desc + ", image=" + image + ", idCategory=" + idCategory + ", catName=" + catName + ", catDesc=" + catDesc + ", price=" + price + '}';
     }
 
 }

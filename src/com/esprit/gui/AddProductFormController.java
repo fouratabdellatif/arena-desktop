@@ -43,7 +43,7 @@ public class AddProductFormController implements Initializable {
     private void addProduct(ActionEvent event) {
         String nom = tfNom.getText();
         String prenom = tfPrenom.getText();
-        Product p = new Product(nom, 20, nom, nom);
+        Product p = new Product(nom, 20, 20, nom, nom);
         ProductCRUD pcrud = new ProductCRUD();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         try {

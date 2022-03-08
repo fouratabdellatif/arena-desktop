@@ -5,6 +5,7 @@
  */
 package com.esprit.services;
 
+import com.esprit.entities.Category;
 import com.esprit.entities.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,26 +30,28 @@ public class ProductCRUD {
     }
 
     public void addProduct(Product p) throws SQLException {
-        PreparedStatement pre = con.prepareStatement("INSERT INTO products (name,qty,description,image,idCat)VALUES (?,?,?,?,?);");
+        PreparedStatement pre = con.prepareStatement("INSERT INTO products (name,price,qty,description,image,idCat)VALUES (?,?,?,?,?,?);");
         pre.setString(1, p.getName());
-        pre.setInt(2, p.getQty());
-        pre.setString(3, p.getDesc());
-        pre.setString(4, p.getImage());
-        pre.setInt(5, p.getIdCategory());
+        pre.setInt(2, p.getPrice());
+        pre.setInt(3, p.getQty());
+        pre.setString(4, p.getDesc());
+        pre.setString(5, p.getImage());
+        pre.setInt(6, p.getIdCategory());
 
         pre.executeUpdate();
     }
 
-    public boolean updateProduct(String name, int qty, String desc, String image, int idCat, int id) {
+    public boolean updateProduct(String name, int price, int qty, String desc, String image, int idCat, int id) {
         try {
-            PreparedStatement pre = con.prepareStatement("update products set name=?, qty=?, description=?, image=?, idCat=? where id=? ;");
+            PreparedStatement pre = con.prepareStatement("update products set name=?, price=?, qty=?, description=?, image=?, idCat=? where id=? ;");
 
             pre.setString(1, name);
-            pre.setInt(2, qty);
-            pre.setString(3, desc);
-            pre.setString(4, image);
-            pre.setInt(5, idCat);
-            pre.setInt(6, id);
+            pre.setInt(2, price);
+            pre.setInt(3, qty);
+            pre.setString(4, desc);
+            pre.setString(5, image);
+            pre.setInt(6, idCat);
+            pre.setInt(7, id);
 
             if (pre.executeUpdate() != 0) {
                 System.out.println("product updated");
@@ -78,26 +81,21 @@ public class ProductCRUD {
 
         List<Product> listOfProducts = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("SELECT "
-                + "products.id AS product_id,"
-                + "products.name AS product_name,"
-                + "products.qty AS product_qty,"
-                + "products.description AS product_description,"
-                + "products.image AS product_image,"
-                + "idCat AS category_id, "
-                + "categories.name AS category_name, "
-                + "categories.description AS category_desc"
-                + " from products JOIN categories ON products.idCat=categories.id");
+        ResultSet rs = ste.executeQuery("Select * from products");
         while (rs.next()) {
-            int id = rs.getInt("product_id");
-            String name = rs.getString("product_name");
-            int qty = rs.getInt("product_qty");
-            String desc = rs.getString("product_description");
-            String image = rs.getString("product_image");
-            int idCat = rs.getInt("category_id");
-            String catName = rs.getString("category_name");
-            String catDesc = rs.getString("category_desc");
-            Product p = new Product(id, name, qty, desc, image, idCat, catName, catDesc);
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            int price = rs.getInt("price");
+            System.out.print(price);
+            int qty = rs.getInt("qty");
+            String desc = rs.getString("description");
+            String image = rs.getString("image");
+            CategoryCRUD ccrud = new CategoryCRUD();
+            Category cat = ccrud.showCategory(rs.getInt("idCat"));
+            int idCat = cat.getId();
+            String catName = cat.getName();
+            String catDesc = cat.getDesc();
+            Product p = new Product(id, name, price, qty, desc, image, idCat, catName, catDesc);
             listOfProducts.add(p);
         }
         return listOfProducts;

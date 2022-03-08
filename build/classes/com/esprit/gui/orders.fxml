@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +11,7 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="722.0" style="-fx-background-color: #c4c4c4;">
          <children>
-            <TableView fx:id="ordersTable" layoutX="14.0" layoutY="14.0" prefHeight="573.0" prefWidth="694.0">
+            <TableView fx:id="ordersTable" layoutX="14.0" layoutY="86.0" prefHeight="501.0" prefWidth="694.0">
                <columns>
                   <TableColumn fx:id="productCol" prefWidth="184.0" text="Product" />
                   <TableColumn fx:id="userCol" minWidth="3.0" prefWidth="238.0" text="User" />
@@ -17,6 +19,8 @@
                   <TableColumn fx:id="dateCol" prefWidth="146.0" text="Created At" />
                </columns>
             </TableView>
+            <Label fx:id="orderNumberLbl" layoutX="281.0" layoutY="35.0" prefHeight="17.0" prefWidth="80.0" />
+            <JFXTextField fx:id="searchFld" layoutX="60.0" layoutY="31.0" onKeyTyped="#search" prefHeight="25.0" prefWidth="192.0" promptText="Search by product or by user..." />
          </children>
       </Pane>
    </children>
