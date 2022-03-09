@@ -5,6 +5,7 @@
  */
 package com.esprit.services;
 
+import com.esprit.entities.Category;
 import com.esprit.utils.DBConnection;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -54,26 +55,44 @@ public class ProductSrvc {
             my_pdf_report.add(new Paragraph("  "));
 
             //we have four columns in our table
-            PdfPTable my_report_table = new PdfPTable(3);
+            PdfPTable my_report_table = new PdfPTable(6);
 
             //create a cell object
             PdfPCell table_cell;
-            table_cell = new PdfPCell(new Phrase("name"));
+            table_cell = new PdfPCell(new Phrase("Name"));
             my_report_table.addCell(table_cell);
-            table_cell = new PdfPCell(new Phrase("quantity"));
+            table_cell = new PdfPCell(new Phrase("Qty"));
             my_report_table.addCell(table_cell);
-            table_cell = new PdfPCell(new Phrase("description"));
+            table_cell = new PdfPCell(new Phrase("Desc"));
+            my_report_table.addCell(table_cell);
+            table_cell = new PdfPCell(new Phrase("Category"));
+            my_report_table.addCell(table_cell);
+            table_cell = new PdfPCell(new Phrase("Price"));
+            my_report_table.addCell(table_cell);
+            table_cell = new PdfPCell(new Phrase("Image"));
             my_report_table.addCell(table_cell);
 
             while (query_set.next()) {
-                String titre = query_set.getString("name");
-                table_cell = new PdfPCell(new Phrase(titre));
+                String name = query_set.getString("name");
+                table_cell = new PdfPCell(new Phrase(name));
                 my_report_table.addCell(table_cell);
-                String auteur = query_set.getString("qty");
-                table_cell = new PdfPCell(new Phrase(auteur));
+                String qty = query_set.getString("qty");
+                table_cell = new PdfPCell(new Phrase(qty));
                 my_report_table.addCell(table_cell);
-                String img_post = query_set.getString("description");
-                table_cell = new PdfPCell(new Phrase(img_post));
+                String desc = query_set.getString("description");
+                table_cell = new PdfPCell(new Phrase(desc));
+                my_report_table.addCell(table_cell);
+
+                CategoryCRUD ccrud = new CategoryCRUD();
+                Category cat = ccrud.showCategory(query_set.getInt("idCat"));
+                String catName = cat.getName();
+                table_cell = new PdfPCell(new Phrase(catName));
+                my_report_table.addCell(table_cell);
+                String price = query_set.getString("price");
+                table_cell = new PdfPCell(new Phrase(price));
+                my_report_table.addCell(table_cell);
+                String image = query_set.getString("image");
+                table_cell = new PdfPCell(new Phrase(image));
                 my_report_table.addCell(table_cell);
             }
             Notifications notifications = Notifications.create();
