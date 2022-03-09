@@ -6,12 +6,14 @@
 package com.esprit.gui;
 
 import com.esprit.entities.Product;
+import com.esprit.services.ProductCRUD;
 import com.esprit.utils.MyListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -60,6 +62,8 @@ public class ProductDetailsController implements Initializable {
         nameLbl.setText(p.getName());
         descLbl.setText(p.getDesc());
         priceLbl.setText(p.getPrice() + "DT");
+        System.out.println(p.getRate());
+        rating.setRating(p.getRate());
 //        Image image = new Image(getClass().getResourceAsStream(p.getImage() + ""));
 //        img.setImage(image);
     }
@@ -70,6 +74,24 @@ public class ProductDetailsController implements Initializable {
 
     @FXML
     private void rate(ActionEvent event) {
+
+        ProductCRUD pcrud = new ProductCRUD();
+        if (pcrud.saveRate((int) rating.getRating(), p.getId())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Rating saved");
+            alert.showAndWait();
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Rating not saved");
+            alert.showAndWait();
+
+        }
+
     }
 
 }

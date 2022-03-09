@@ -24,7 +24,7 @@ public class FXMain extends Application {
     public void start(Stage primaryStage) {
         try {
             primaryStage.initStyle(StageStyle.DECORATED);
-            URL fxURL = getClass().getResource("../gui/FrontofficeHome.fxml");
+            URL fxURL = getClass().getResource("../gui/BackofficeHome.fxml");
             FXMLLoader loader = new FXMLLoader(fxURL);
             Parent root = loader.load();
             Scene scene = new Scene(root);

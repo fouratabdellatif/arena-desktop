@@ -90,14 +90,33 @@ public class ProductCRUD {
             int qty = rs.getInt("qty");
             String desc = rs.getString("description");
             String image = rs.getString("image");
+            int rate = rs.getInt("rate");
             CategoryCRUD ccrud = new CategoryCRUD();
             Category cat = ccrud.showCategory(rs.getInt("idCat"));
             int idCat = cat.getId();
             String catName = cat.getName();
             String catDesc = cat.getDesc();
-            Product p = new Product(id, name, price, qty, desc, image, idCat, catName, catDesc);
+            Product p = new Product(id, name, qty, desc, image, idCat, catName, catDesc, price, rate);
             listOfProducts.add(p);
         }
         return listOfProducts;
+    }
+
+    public boolean saveRate(int rate, int id) {
+        try {
+            PreparedStatement pre = con.prepareStatement("update products set rate=? where id=? ;");
+
+            pre.setInt(1, rate);
+            pre.setInt(2, id);
+
+            if (pre.executeUpdate() != 0) {
+                System.out.println("rate updated");
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("id  not found!!!");
+        return false;
     }
 }

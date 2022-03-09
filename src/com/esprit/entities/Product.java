@@ -54,6 +54,7 @@ public class Product {
     public Product(int id, String name, int price, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
         this.id = id;
         this.name = name;
+        this.price = price;
         this.qty = qty;
         this.desc = desc;
         this.image = image;
@@ -64,6 +65,7 @@ public class Product {
 
     public Product(String name, int price, int qty, String desc, String image, int idCategory, String catName, String catDesc) {
         this.name = name;
+        this.price = price;
         this.qty = qty;
         this.desc = desc;
         this.image = image;
@@ -178,7 +180,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", desc=" + desc + ", image=" + image + ", idCategory=" + idCategory + ", catName=" + catName + ", catDesc=" + catDesc + ", price=" + price + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", desc=" + desc + ", image=" + image + ", idCategory=" + idCategory + ", catName=" + catName + ", catDesc=" + catDesc + ", price=" + price + ", rate=" + rate + '}';
     }
 
 }

@@ -14,9 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -42,6 +38,7 @@ public class ProductsFrontController implements Initializable {
     private GridPane grid;
 
     private List<Product> productsList = new ArrayList<>();
+    private List<Product> prod = new ArrayList<>();
 
     private MyListener myListener;
     @FXML
@@ -52,21 +49,20 @@ public class ProductsFrontController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+//        try {
+        // TODO
+//            ProductCRUD pcrud = new ProductCRUD();
+//            List products = pcrud.showAllProducts();
+//            System.out.println(products);
+//            productsList.addAll(products);
         try {
-            // TODO
             ProductCRUD pcrud = new ProductCRUD();
-            List products = pcrud.showAllProducts();
-            System.out.println(products);
-            productsList.addAll(products);
-            if (productsList.size() > 0) {
-                setChosenProduct(productsList.get(0));
-                myListener = new MyListener() {
-                    @Override
-                    public void onClickListener(Product p) {
-                        setChosenProduct(p);
-                    }
-                };
-            }
+
+            productsList.addAll(pcrud.showAllProducts());
+
+            prod.addAll(getData());
+
+            /* System.out.println(post);*/
             int column = 0;
             int row = 1;
             for (int i = 0; i < productsList.size(); i++) {
@@ -103,15 +99,23 @@ public class ProductsFrontController implements Initializable {
         }
     }
 
-    private void setChosenProduct(Product p) {
-//        fruitNameLable.setText(fruit.getName());
-//        fruitPriceLabel.setText(Main.CURRENCY + fruit.getPrice());
-//        image = new Image(getClass().getResourceAsStream(fruit.getImgSrc()));
-//        fruitImg.setImage(image);
-//        chosenFruitCard.setStyle("-fx-background-color: #" + fruit.getColor() + ";\n"
-//                + "    -fx-background-radius: 30;");
+    private List<Product> getData() {
+        List<Product> productItem = new ArrayList<>();
+        Product pro;
+
+        for (Product p : productsList) {
+            pro = new Product();
+            pro.setName(p.getName());
+            pro.setRate(p.getRate());
+            pro.setImage(p.getImage());
+
+            productItem.add(pro);
+        }
+
+        return productItem;
+
     }
-    
+
     public List<Product> filteredSearch = new ArrayList<>();
     private List<Product> productss = new ArrayList<>();
 
