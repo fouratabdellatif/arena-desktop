@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -75,8 +76,8 @@ public class ItemProductCartController implements Initializable {
         nameLbl.setText(p.getName());
         priceLbl.setText(p.getPrice() + " DT");
         descLbl.setText(p.getDesc());
-//        Image image = new Image(getClass().getResourceAsStream(p.getImage() + ""));
-//        img.setImage(image);
+        Image myImage = new Image(getClass().getResourceAsStream("/resources/" + p.getImage() + ""));
+        img.setImage(myImage);
     }
 
     @FXML

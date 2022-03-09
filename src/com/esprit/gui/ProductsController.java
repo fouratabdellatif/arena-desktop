@@ -13,6 +13,7 @@ import com.esprit.services.ProductSrvc;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -304,6 +306,20 @@ public class ProductsController implements Initializable {
     private void exportTable(ActionEvent event) throws SQLException, FileNotFoundException {
         ProductSrvc ps = new ProductSrvc();
         ps.exportTable();
+    }
+
+    @FXML
+    private void upload(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        String imageFile = "";
+        File f = fc.showOpenDialog(null);
+
+        if (f != null) {
+            imageFile = f.getAbsolutePath();
+            String newimageFile = imageFile.replace("C:\\Users\\Foura\\Documents\\NetBeansProjects\\arena-desktop\\src\\resources\\","");
+
+            imageFld.setText(newimageFile);
+        }
     }
 
 }

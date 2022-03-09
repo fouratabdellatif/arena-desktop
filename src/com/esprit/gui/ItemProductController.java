@@ -66,6 +66,8 @@ public class ItemProductController implements Initializable {
         this.myListener = myListener;
         nameLbl.setText(p.getName());
         priceLbl.setText(p.getPrice() + " DT");
+        Image myImage = new Image(getClass().getResourceAsStream("/resources/" + p.getImage() + ""));
+        img.setImage(myImage);
 //        Image image = new Image(getClass().getResourceAsStream(p.getImage() + ""));
 //        img.setImage(image);
     }
