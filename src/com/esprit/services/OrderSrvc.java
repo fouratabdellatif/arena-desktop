@@ -5,7 +5,6 @@
  */
 package com.esprit.services;
 
-import com.esprit.entities.Category;
 import com.esprit.entities.Product;
 import com.esprit.utils.DBConnection;
 import com.itextpdf.text.Document;
@@ -19,7 +18,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

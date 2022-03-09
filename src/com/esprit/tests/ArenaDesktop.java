@@ -49,7 +49,7 @@ public class ArenaDesktop {
 //        pcrud.addProduct(p2);
 //        pcrud.updateProduct("God Of War", 60, "Play God Of War", "/imageGOW", c1.getId(), 9);
 //        pcrud.deleteProduct(9);
-        System.out.println(pcrud.showProduct(59));
+        System.out.println(ocrud.showAllOrders());
 //        Category c1 = new Category("Games", "This category is about games");
 //        Category c2 = new Category("Equipments", "This category is about gaming equipments");
 //        ccrud.addCategory(c1);

@@ -22,7 +22,7 @@
             <Separator layoutY="157.0" prefHeight="28.0" prefWidth="225.0" />
             <VBox layoutY="196.0" prefHeight="242.0" prefWidth="225.0">
                <children>
-                  <JFXButton onAction="#switchProducts" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Products" textAlignment="CENTER" textFill="WHITE" />
+                  <JFXButton onAction="#switchProducts" prefHeight="41.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #0f1e2f; -fx-font-size: 18px;" text="Shop" textAlignment="CENTER" textFill="WHITE" />
                </children>
             </VBox>
          </children>

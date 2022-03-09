@@ -5,6 +5,7 @@
  */
 package com.esprit.utils;
 
+import com.esprit.entities.Order;
 import com.esprit.entities.Product;
 
 /**
@@ -14,5 +15,6 @@ import com.esprit.entities.Product;
 public interface MyListener {
 
     public void onClickListener(Product p);
+    public void onClickOrderListener(Order o);
 
 }

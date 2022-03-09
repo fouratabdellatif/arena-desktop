@@ -31,11 +31,12 @@ public class OrderCRUD {
     }
 
     public void addOrder(Order o) throws SQLException {
-        PreparedStatement pre = con.prepareStatement("INSERT INTO orders (idProduct,idUser,productQty,createdAt)VALUES (?,?,?,?);");
+        PreparedStatement pre = con.prepareStatement("INSERT INTO orders (idProduct,idUser,productQty,createdAt,num)VALUES (?,?,?,?,?);");
         pre.setInt(1, o.getIdProduct());
         pre.setInt(2, o.getIdUser());
         pre.setInt(3, o.getProductQty());
         pre.setDate(4, o.getCreatedAt());
+        pre.setInt(5, o.getNum());
 
         pre.executeUpdate();
     }
@@ -89,9 +90,40 @@ public class OrderCRUD {
 //            User user = ucrud.showUser(rs.getInt("idUser"));
 //            String userName = ucrud.getName();
             int productQty = rs.getInt("productQty");
+            int prodPrice = prod.getPrice();
+            int totalPrice = prodPrice * productQty;
             Date createdAt = rs.getDate("createdAt");
-            Order o = new Order(id, idProd, 1, productQty, createdAt, prodName, prodDesc, "fourat", "fourat@esprit.tn", "player");
+            int num = rs.getInt("num");
+            Order o = new Order(id, idProd, 1, productQty, totalPrice, createdAt, prodName, prodDesc, "fourat", "fourat@esprit.tn", "player", num);
             listOfOrders.add(o);
+        }
+        return listOfOrders;
+    }
+
+    public List<Order> showMyOrders(int idUser) throws SQLException {
+
+        List<Order> listOfOrders = new ArrayList<>();
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("SELECT * from orders");
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            ProductCRUD pcrud = new ProductCRUD();
+            Product prod = pcrud.showProduct(rs.getInt("idProduct"));
+            int idProd = prod.getId();
+            String prodName = prod.getName();
+            String prodDesc = prod.getDesc();
+//            UserCRUD ucrud = new UserCRUD();
+//            User user = ucrud.showUser(rs.getInt("idUser"));
+//            String userName = ucrud.getName();
+            int productQty = rs.getInt("productQty");
+            int prodPrice = prod.getPrice();
+            int totalPrice = prodPrice * productQty;
+            Date createdAt = rs.getDate("createdAt");
+            int num = rs.getInt("num");
+            Order o = new Order(id, idProd, 1, productQty, totalPrice, createdAt, prodName, prodDesc, "fourat", "fourat@esprit.tn", "player", num);
+            if (o.getIdUser() == idUser) {
+                listOfOrders.add(o);
+            }
         }
         return listOfOrders;
     }

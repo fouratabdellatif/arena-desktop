@@ -33,6 +33,8 @@ public class ProductQuantityController implements Initializable {
     private Product p;
     @FXML
     private JFXButton cancelBtn;
+    @FXML
+    private JFXButton closeOnConfirmBtn;
 
     /**
      * Initializes the controller class.
@@ -58,6 +60,8 @@ public class ProductQuantityController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         try {
             ocrud.addOrder(o);
+            Stage stage = (Stage) closeOnConfirmBtn.getScene().getWindow();
+            stage.close();
             alert.setTitle("Success");
             alert.setHeaderText("sent");
             alert.setContentText("order sent successfully");

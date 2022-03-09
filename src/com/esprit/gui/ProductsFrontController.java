@@ -19,11 +19,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -37,8 +41,10 @@ public class ProductsFrontController implements Initializable {
     @FXML
     private GridPane grid;
 
-    private List<Product> productsList = new ArrayList<>();
-    private List<Product> prod = new ArrayList<>();
+    private Product p;
+
+    public static List<Product> productsList = new ArrayList<>();
+    public static List<Product> prod = new ArrayList<>();
 
     private MyListener myListener;
     @FXML
@@ -62,7 +68,6 @@ public class ProductsFrontController implements Initializable {
 
             prod.addAll(getData());
 
-            /* System.out.println(post);*/
             int column = 0;
             int row = 1;
             for (int i = 0; i < productsList.size(); i++) {
@@ -99,7 +104,7 @@ public class ProductsFrontController implements Initializable {
         }
     }
 
-    private List<Product> getData() {
+    public static List<Product> getData() {
         List<Product> productItem = new ArrayList<>();
         Product pro;
 
@@ -170,6 +175,30 @@ public class ProductsFrontController implements Initializable {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @FXML
+    private void redirectToCart(ActionEvent event) throws IOException {
+        URL fxURL = getClass().getResource("ProductsCart.fxml");
+        FXMLLoader loader = new FXMLLoader(fxURL);
+        Parent root = loader.load();
+        ProductsCartController pcc = loader.getController();
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    private void redirectToMyOrders(ActionEvent event) throws IOException {
+        URL fxURL = getClass().getResource("MyOrders.fxml");
+        FXMLLoader loader = new FXMLLoader(fxURL);
+        Parent root = loader.load();
+        MyOrdersController moc = loader.getController();
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }

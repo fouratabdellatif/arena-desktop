@@ -5,26 +5,20 @@
  */
 package com.esprit.gui;
 
-import com.esprit.entities.Order;
 import com.esprit.entities.Product;
-import com.esprit.services.OrderCRUD;
-import com.esprit.services.ProductCRUD;
+import static com.esprit.gui.ItemProductController.product;
 import com.esprit.utils.MyListener;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -35,18 +29,21 @@ import javafx.stage.StageStyle;
  *
  * @author Foura
  */
-public class ItemProductController implements Initializable {
+public class ItemProductCartController implements Initializable {
 
     @FXML
     private Label nameLbl;
     @FXML
+    private ImageView img;
+    @FXML
     private Label priceLbl;
     @FXML
-    private ImageView img;
+    private Label descLbl;
 
     private MyListener myListener;
     private Product p;
-    public static Product product;
+    @FXML
+    private JFXButton rmvBtn;
 
     /**
      * Initializes the controller class.
@@ -54,6 +51,17 @@ public class ItemProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+
+    @FXML
+    private void removeProduct(ActionEvent event) {
+        ProductDetailsController.myProducts.remove(p);
+        Stage stage = (Stage) rmvBtn.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void addThisProduct(ActionEvent event) {
     }
 
     @FXML
@@ -66,29 +74,13 @@ public class ItemProductController implements Initializable {
         this.myListener = myListener;
         nameLbl.setText(p.getName());
         priceLbl.setText(p.getPrice() + " DT");
+        descLbl.setText(p.getDesc());
 //        Image image = new Image(getClass().getResourceAsStream(p.getImage() + ""));
 //        img.setImage(image);
     }
 
     @FXML
-    private void showDetails(ActionEvent event) {
-        try {
-            URL fxURL = getClass().getResource("ProductDetails.fxml");
-            FXMLLoader loader = new FXMLLoader(fxURL);
-            Parent root = loader.load();
-            ProductDetailsController pdc = loader.getController();
-            pdc.setData(p, myListener);
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    @FXML
-    private void addOrder(ActionEvent event) {
+    private void orderThisProduct(ActionEvent event) {
         try {
             URL fxURL = getClass().getResource("ProductQuantity.fxml");
             FXMLLoader loader = new FXMLLoader(fxURL);
@@ -103,27 +95,6 @@ public class ItemProductController implements Initializable {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-//        int idProduct = p.getId();
-//        int idUser = 1;
-//        int productQty = 1;
-//        Order o = new Order(idProduct, idUser, productQty);
-//
-//        OrderCRUD ocrud = new OrderCRUD();
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        try {
-//            ocrud.addOrder(o);
-//            alert.setTitle("Success");
-//            alert.setHeaderText("sent");
-//            alert.setContentText("order sent successfully");
-//        } catch (SQLException ex) {
-//            alert.setAlertType(Alert.AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText("not sent");
-//            alert.setContentText("order isn't sent");
-//            System.out.println(ex.getMessage());
-//        } finally {
-//            alert.showAndWait();
-//        }
-
     }
+
 }

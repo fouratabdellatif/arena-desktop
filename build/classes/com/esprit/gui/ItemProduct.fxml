@@ -35,7 +35,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <JFXButton layoutX="149.0" layoutY="31.0" onAction="#showDetails" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #81171b; -fx-text-fill: #ffffff;" text="Details" />
-                  <JFXButton layoutX="6.0" layoutY="31.0" onAction="#addOrder" prefHeight="32.0" prefWidth="94.0" style="-fx-background-color: #81171b; -fx-text-fill: #ffffff;" text="Commander" />
+                  <JFXButton layoutX="6.0" layoutY="31.0" onAction="#addOrder" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #81171b; -fx-text-fill: #ffffff;" text="Order" />
                </children>
             </Pane>
             </children>

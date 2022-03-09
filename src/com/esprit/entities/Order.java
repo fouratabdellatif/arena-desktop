@@ -6,7 +6,6 @@
 package com.esprit.entities;
 
 import java.sql.Date;
-import java.time.Instant;
 
 /**
  *
@@ -18,14 +17,52 @@ public class Order {
     private int idProduct;
     private int idUser;
     private int productQty;
+    private int totalPrice;
     private Date createdAt;
     private String productName;
     private String productDesc;
     private String userName;
     private String userEmail;
     private String userRole;
+    private int num;
 
-    public Order(int id, int idProduct, int idUser, int productQty, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole) {
+    public Order() {
+    }
+
+    public Order(int id, int idProduct, int idUser, int productQty, int totalPrice, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole, int num) {
+        this.id = id;
+        this.idProduct = idProduct;
+        this.idUser = idUser;
+        this.productQty = productQty;
+        this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+        this.num = num;
+    }
+
+    public Order(int idProduct, int idUser, int productQty, int totalPrice, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole) {
+
+        this.idProduct = idProduct;
+        this.idUser = idUser;
+        this.productQty = productQty;
+        this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+        int min = 10000;
+        int max = 99999;
+        int random_id = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        this.num = random_id;
+    }
+
+    public Order(int id, int idProduct, int idUser, int productQty, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole, int num) {
         this.id = id;
         this.idProduct = idProduct;
         this.idUser = idUser;
@@ -36,9 +73,10 @@ public class Order {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userRole = userRole;
+        this.num = num;
     }
 
-    public Order(int idProduct, int idUser, int productQty, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole) {
+    public Order(int idProduct, int idUser, int productQty, Date createdAt, String productName, String productDesc, String userName, String userEmail, String userRole, int num) {
         this.idProduct = idProduct;
         this.idUser = idUser;
         this.productQty = productQty;
@@ -48,23 +86,26 @@ public class Order {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userRole = userRole;
+        this.num = num;
     }
 
-    public Order(int id, int idProduct, int idUser, int productQty) {
+    public Order(int id, int idProduct, int idUser, int productQty, int num) {
         this.id = id;
         this.idProduct = idProduct;
         this.idUser = idUser;
         this.productQty = productQty;
         long millis = System.currentTimeMillis();
         this.createdAt = new Date(millis);
+        this.num = num;
     }
 
-    public Order(int id, int idProduct, int idUser, int productQty, Date createdAt) {
+    public Order(int id, int idProduct, int idUser, int productQty, Date createdAt, int num) {
         this.id = id;
         this.idProduct = idProduct;
         this.idUser = idUser;
         this.productQty = productQty;
         this.createdAt = createdAt;
+        this.num = num;
     }
 
     public Order(int idProduct, int idUser, int productQty) {
@@ -73,13 +114,18 @@ public class Order {
         this.productQty = productQty;
         long millis = System.currentTimeMillis();
         this.createdAt = new Date(millis);
+        int min = 10000;
+        int max = 99999;
+        int random_id = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        this.num = random_id;
     }
 
-    public Order(int idProduct, int idUser, int productQty, Date createdAt) {
+    public Order(int idProduct, int idUser, int productQty, Date createdAt, int num) {
         this.idProduct = idProduct;
         this.idUser = idUser;
         this.productQty = productQty;
         this.createdAt = createdAt;
+        this.num = num;
     }
 
     public int getId() {
@@ -122,6 +168,18 @@ public class Order {
         return createdAt;
     }
 
+    public int getNum() {
+        return num;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -162,9 +220,13 @@ public class Order {
         this.userRole = userRole;
     }
 
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", idProduct=" + idProduct + ", idUser=" + idUser + ", productQty=" + productQty + ", createdAt=" + createdAt + ", productName=" + productName + ", productDesc=" + productDesc + ", userName=" + userName + ", userEmail=" + userEmail + ", userRole=" + userRole + '}';
+        return "Order{" + "id=" + id + ", idProduct=" + idProduct + ", idUser=" + idUser + ", productQty=" + productQty + ", totalPrice=" + totalPrice + ", createdAt=" + createdAt + ", productName=" + productName + ", productDesc=" + productDesc + ", userName=" + userName + ", userEmail=" + userEmail + ", userRole=" + userRole + ", num=" + num + '}';
     }
 
 }

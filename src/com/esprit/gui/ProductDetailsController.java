@@ -9,6 +9,9 @@ import com.esprit.entities.Product;
 import com.esprit.services.ProductCRUD;
 import com.esprit.utils.MyListener;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +45,8 @@ public class ProductDetailsController implements Initializable {
     @FXML
     private Rating rating;
 
+    public static List<Product> myProducts = new ArrayList<>();
+
     /**
      * Initializes the controller class.
      */
@@ -59,21 +64,24 @@ public class ProductDetailsController implements Initializable {
     public void setData(Product p, MyListener myListener) {
         this.p = p;
         this.myListener = myListener;
+        rating.setRating(p.getRate());
         nameLbl.setText(p.getName());
         descLbl.setText(p.getDesc());
         priceLbl.setText(p.getPrice() + "DT");
         System.out.println(p.getRate());
-        rating.setRating(p.getRate());
 //        Image image = new Image(getClass().getResourceAsStream(p.getImage() + ""));
 //        img.setImage(image);
     }
 
     @FXML
     private void addToCart(ActionEvent event) {
+        myProducts.add(p);
+        System.out.println("product " + p);
+        System.out.println("all: " + myProducts);
     }
 
     @FXML
-    private void rate(ActionEvent event) {
+    private void rate(ActionEvent event) throws SQLException {
 
         ProductCRUD pcrud = new ProductCRUD();
         if (pcrud.saveRate((int) rating.getRating(), p.getId())) {
@@ -82,6 +90,11 @@ public class ProductDetailsController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Rating saved");
             alert.showAndWait();
+//            ProductsFrontController.productsList.clear();
+//
+//            ProductsFrontController.productsList.addAll(pcrud.showAllProducts());
+//            
+//            ProductsFrontController.prod.addAll(ProductsFrontController.getData());
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
