@@ -15,7 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,6 +29,10 @@ public class BackofficeHomeController implements Initializable {
 
     @FXML
     private StackPane contentArea;
+    @FXML
+    private Label closeIcon;
+    @FXML
+    private Label minimizeIcon;
 
     /**
      * Initializes the controller class.
@@ -81,6 +88,18 @@ public class BackofficeHomeController implements Initializable {
         Parent fxml = FXMLLoader.load(getClass().getResource("productcat.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
+    private void closeWindow(MouseEvent event) {
+        Stage stage = (Stage) closeIcon.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void minimizeWindow(MouseEvent event) {
+        Stage stage = (Stage) minimizeIcon.getScene().getWindow();
+        stage.setIconified(true);
     }
 
 }

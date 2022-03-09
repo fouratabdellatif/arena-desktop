@@ -6,6 +6,7 @@
 package com.esprit.services;
 
 import com.esprit.entities.Order;
+import com.esprit.entities.Product;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -76,32 +77,20 @@ public class OrderCRUD {
 
         List<Order> listOfOrders = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("SELECT "
-                + "orders.id AS order_id, "
-                + "idProduct AS product_id, "
-                + "products.name AS product_name, "
-                + "products.description AS product_desc, "
-                + "idUser AS user_id, "
-                + "users.name AS user_name, "
-                + "users.email AS user_email, "
-                + "users.role AS user_role, "
-                + "orders.productQty AS order_qantity, "
-                + "orders.createdAt AS order_date "
-                + "from orders "
-                + "INNER JOIN users ON orders.idUser=users.id "
-                + "INNER JOIN products ON orders.idProduct=products.id");
+        ResultSet rs = ste.executeQuery("SELECT * from orders");
         while (rs.next()) {
-            int id = rs.getInt("order_id");
-            int idProduct = rs.getInt("product_id");
-            String productName = rs.getString("product_name");
-            String productDesc = rs.getString("product_desc");
-            String userName = rs.getString("user_name");
-            String userEmail = rs.getString("user_email");
-            String userRole = rs.getString("user_role");
-            int idUser = rs.getInt("user_id");
-            int productQty = rs.getInt("order_qantity");
-            Date createdAt = rs.getDate("order_date");
-            Order o = new Order(id, idProduct, idUser, productQty, createdAt, productName, productDesc, userName, userEmail, userRole);
+            int id = rs.getInt("id");
+            ProductCRUD pcrud = new ProductCRUD();
+            Product prod = pcrud.showProduct(rs.getInt("idProduct"));
+            int idProd = prod.getId();
+            String prodName = prod.getName();
+            String prodDesc = prod.getDesc();
+//            UserCRUD ucrud = new UserCRUD();
+//            User user = ucrud.showUser(rs.getInt("idUser"));
+//            String userName = ucrud.getName();
+            int productQty = rs.getInt("productQty");
+            Date createdAt = rs.getDate("createdAt");
+            Order o = new Order(id, idProd, 1, productQty, createdAt, prodName, prodDesc, "fourat", "fourat@esprit.tn", "player");
             listOfOrders.add(o);
         }
         return listOfOrders;

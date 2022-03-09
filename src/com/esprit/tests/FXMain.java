@@ -23,7 +23,7 @@ public class FXMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            primaryStage.initStyle(StageStyle.DECORATED);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
             URL fxURL = getClass().getResource("../gui/BackofficeHome.fxml");
             FXMLLoader loader = new FXMLLoader(fxURL);
             Parent root = loader.load();

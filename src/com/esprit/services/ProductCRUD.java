@@ -102,6 +102,36 @@ public class ProductCRUD {
         return listOfProducts;
     }
 
+    public Product showProduct(int id) throws SQLException {
+
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from products where id=" + id + ";");
+        String name = null;
+        int price = 0;
+        int qty = 0;
+        String desc = null;
+        String image = null;
+        int idCat = 0;
+        String catName = null;
+        String catDesc = null;
+        int rate = 0;
+        if (rs.next()) {
+            name = rs.getString("name");
+            price = rs.getInt("price");
+            qty = rs.getInt("qty");
+            desc = rs.getString("description");
+            image = rs.getString("image");
+            rate = rs.getInt("rate");
+            CategoryCRUD ccrud = new CategoryCRUD();
+            Category cat = ccrud.showCategory(rs.getInt("idCat"));
+            idCat = cat.getId();
+            catName = cat.getName();
+            catDesc = cat.getDesc();
+        }
+        Product p = new Product(id, name, qty, desc, image, idCat, catName, catDesc, price, rate);
+        return p;
+    }
+
     public boolean saveRate(int rate, int id) {
         try {
             PreparedStatement pre = con.prepareStatement("update products set rate=? where id=? ;");

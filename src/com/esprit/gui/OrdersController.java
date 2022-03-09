@@ -7,7 +7,9 @@ package com.esprit.gui;
 
 import com.esprit.entities.Order;
 import com.esprit.services.OrderCRUD;
+import com.esprit.services.OrderSrvc;
 import com.jfoenix.controls.JFXTextField;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -115,5 +118,11 @@ public class OrdersController implements Initializable {
         SortedList<Order> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(ordersTable.comparatorProperty());
         ordersTable.setItems(sortedData);
+    }
+
+    @FXML
+    private void exportTable(ActionEvent event) throws SQLException, FileNotFoundException {
+        OrderSrvc os = new OrderSrvc();
+        os.exportTable();
     }
 }

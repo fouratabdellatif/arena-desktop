@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -21,6 +22,7 @@
             </TableView>
             <Label fx:id="orderNumberLbl" layoutX="281.0" layoutY="35.0" prefHeight="17.0" prefWidth="80.0" />
             <JFXTextField fx:id="searchFld" layoutX="60.0" layoutY="31.0" onKeyTyped="#search" prefHeight="25.0" prefWidth="192.0" promptText="Search by product or by user..." />
+            <JFXButton layoutX="612.0" layoutY="31.0" onAction="#exportTable" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #c4c4c4;" text="Export" />
          </children>
       </Pane>
    </children>
