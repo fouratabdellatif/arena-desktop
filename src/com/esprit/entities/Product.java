@@ -80,6 +80,7 @@ public class Product {
         this.qty = qty;
         this.desc = desc;
         this.image = image;
+        this.price = price;
         this.idCategory = idCategory;
     }
 
@@ -88,6 +89,7 @@ public class Product {
         this.qty = qty;
         this.desc = desc;
         this.image = image;
+        this.price = price;
         this.idCategory = idCategory;
     }
 
@@ -95,6 +97,7 @@ public class Product {
         this.name = name;
         this.qty = qty;
         this.desc = desc;
+        this.price = price;
         this.image = image;
     }
 
