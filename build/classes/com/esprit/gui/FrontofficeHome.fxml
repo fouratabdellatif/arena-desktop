@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="146.0" fitWidth="165.0" layoutX="30.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" x="0.0">
                <image>
-                  <Image url="@../utils/logoGlowCercle.png" />
+                  <Image url="@../../../resources/logoGlowCercle.png" />
                </image>
             </ImageView>
             <Separator layoutY="157.0" prefHeight="28.0" prefWidth="225.0" />
